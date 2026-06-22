@@ -240,8 +240,23 @@
     }
   }
 
+  // 載入翻書音效
+  const flipAudio = new Audio('page-flip.mp3');
+  flipAudio.preload = 'auto';
+
+  // 播放翻頁音效
+  function playFlipSound() {
+    flipAudio.currentTime = 0;
+    flipAudio.play().catch(e => {
+      console.log('音效播放受瀏覽器自動播放政策限制或尚未互動:', e);
+    });
+  }
+
   // 監聽切頁事件
-  Reveal.on('slidechanged', updateMenuVisibility);
+  Reveal.on('slidechanged', (event) => {
+    updateMenuVisibility();
+    playFlipSound();
+  });
   Reveal.on('ready', updateMenuVisibility);
 
   // 初始化選單 active 狀態
