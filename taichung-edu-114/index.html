@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>臺中市114學年度資訊教育議題輔導分團 - 運作機制與成果報告</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/night.css" />
+  <script src="https://cdn.jsdelivr.net/npm/wordcloud@1.2.2/src/wordcloud2.min.js"></script>
+  <style>
+    /* === 全域變數 & 基礎設定 === */
+    :root {
+      --accent:  #e8643a;   /* 橘紅 (主強調) */
+      --accent2: #4fc3f7;   /* 青藍 (次強調) */
+      --success: #81c784;   /* 綠色 (正面) */
+      --warn:    #ffb74d;   /* 琥珀 (提示) */
+      --bg-dark: #0d1117;   /* 主背景色 */
+    }
+
+    body {
+      background-color: var(--bg-dark);
+    }
+
+    .reveal {
+      font-family: 'Segoe UI', 'Microsoft JhengHei', 'Noto Sans TC', sans-serif;
+    }
+    .reveal h1, .reveal h2, .reveal h3 {
+      font-family: 'Segoe UI', 'Microsoft JhengHei', 'Noto Sans TC', sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      text-transform: none;
+    }
+    .reveal h1 { font-size: 2.0em; text-shadow: 0 0 20px rgba(232,100,58,0.3); }
+    .reveal h2 { font-size: 1.45em; color: var(--accent2); margin-bottom: 0.6em; text-shadow: 0 0 15px rgba(79,195,247,0.2); }
+    .reveal h3 { font-size: 0.9em; color: #fff; margin-bottom: 0.3em; }
+    .reveal p { font-size: 0.7em; color: #ccc; line-height: 1.6; }
+    .reveal ul { font-size: 0.55em; color: #bbb; line-height: 1.7; }
+    .reveal .progress { color: var(--accent); }
+    .reveal .fragment { opacity: 0.15; }
+    .reveal .fragment.visible { opacity: 1; }
+
+    /* === 封面樣式 === */
+    .title-slide { text-align: center; padding: 20px; }
+    .title-slide .tag {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      padding: 6px 16px;
+      border-radius: 30px;
+      font-size: 0.5em;
+      letter-spacing: 0.1em;
+      margin-bottom: 1em;
+      font-weight: 600;
+      box-shadow: 0 0 12px rgba(232,100,58,0.4);
+    }
+    .title-slide .subtitle { font-size: 0.85em; color: #ddd; margin-top: 0.6em; font-weight: 600; }
+    .title-slide .author { margin-top: 2.2em; font-size: 0.45em; color: #888; letter-spacing: 0.05em; }
+
+    /* === 全域團隊 LOGO === */
+    .global-logo {
+      position: fixed;
+      bottom: 24px;
+      left: 24px;
+      height: 48px;
+      z-index: 9999;
+      pointer-events: none;
+      opacity: 0.85;
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.6));
+      transition: opacity 0.3s ease;
+    }
+
+    /* === 數字統計卡 (STAT) === */
+    .stat-row { display: flex; gap: 16px; justify-content: center; margin-top: 0.8em; }
+    .stat-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 16px 20px;
+      text-align: center;
+      flex: 1;
+      backdrop-filter: blur(5px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      transition: transform 0.3s ease;
+    }
+    .stat-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent2);
+    }
+    .stat-card .num { font-size: 1.8em; font-weight: 800; color: var(--accent); line-height: 1.1; }
+    .stat-card .num-sub { font-size: 0.45em; font-weight: 500; color: #fff; margin-left: 2px; }
+    .stat-card .label { font-size: 0.38em; color: #bbb; margin-top: 6px; font-weight: 500; }
+
+    /* === 四欄或兩欄卡片 (ICON / 卡片式排版) === */
+    .adv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 0.6em; }
+    .adv-card {
+      background: rgba(255,255,255,0.04);
+      border-top: 4px solid var(--accent2);
+      border-radius: 8px;
+      padding: 14px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    .adv-card:hover {
+      background: rgba(255,255,255,0.07);
+      transform: scale(1.02);
+    }
+    .adv-card .adv-icon { margin-bottom: 8px; }
+    .adv-card .adv-icon img {
+      width: 50px; height: 50px; object-fit: contain;
+      display: block; margin: 0 auto;
+      filter: drop-shadow(0 0 8px rgba(79,195,247,0.5));
+    }
+    .adv-card .adv-title { font-size: 0.48em; font-weight: 700; color: var(--accent2); margin-bottom: 4px; }
+    .adv-card .adv-desc { font-size: 0.38em; color: #ccc; line-height: 1.5; text-align: left; }
+
+    /* 左右兩欄配置 */
+    .split-layout { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 20px; align-items: center; margin-top: 0.5em; }
+    .split-left { text-align: left; }
+    .split-right { text-align: left; }
+
+    /* === 封底樣式 === */
+    .end-slide { text-align: center; }
+    .end-slide .logo-glow {
+      width: 140px; height: 140px; object-fit: contain;
+      filter: drop-shadow(0 0 20px rgba(79,195,247,0.6));
+      margin-bottom: 1.2em;
+    }
+    .end-slide .tagline { font-size: 0.75em; color: #ccc; margin-top: 0.8em; }
+
+    /* === 翻頁效果選單 (Sleek Glassmorphism) === */
+    #transition-container {
+      position: fixed !important;
+      top: 24px !important;
+      right: 24px !important;
+      z-index: 99999 !important;
+      font-family: 'PingFang TC', 'Microsoft JhengHei', 'Segoe UI', sans-serif !important;
+      width: 240px !important;
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    #transition-card {
+      background: rgba(15, 15, 20, 0.85) !important;
+      backdrop-filter: blur(12px) !important;
+      -webkit-backdrop-filter: blur(12px) !important;
+      border: 1px solid rgba(255, 255, 255, 0.12) !important;
+      border-radius: 12px !important;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(79, 195, 247, 0.15) !important;
+      overflow: hidden !important;
+    }
+
+    .menu-title {
+      font-size: 10px !important;
+      text-transform: uppercase !important;
+      letter-spacing: 1.5px !important;
+      color: rgba(255, 255, 255, 0.45) !important;
+      padding: 10px 14px 6px 14px !important;
+      font-weight: 700 !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+      background: rgba(255, 255, 255, 0.02) !important;
+      text-align: left !important;
+    }
+
+    #transition-header {
+      padding: 12px 14px !important;
+      color: #ffffff !important;
+      font-size: 14px !important;
+      font-weight: 600 !important;
+      cursor: pointer !important;
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: center !important;
+      user-select: none !important;
+      transition: background 0.2s ease !important;
+      border: none !important;
+      box-shadow: none !important;
+      background: transparent !important;
+    }
+
+    #transition-header:hover {
+      background: rgba(255, 255, 255, 0.05) !important;
+    }
+
+    #transition-header .arrow {
+      font-size: 9px !important;
+      color: var(--accent2) !important;
+      transition: transform 0.3s ease !important;
+    }
+
+    #transition-header.open .arrow {
+      transform: rotate(180deg) !important;
+    }
+
+    #transition-list {
+      display: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+      max-height: 240px !important;
+      overflow-y: auto !important;
+      background: rgba(10, 10, 12, 0.9) !important;
+    }
+
+    .transition-item {
+      padding: 10px 14px !important;
+      font-size: 13px !important;
+      color: rgba(255, 255, 255, 0.75) !important;
+      cursor: pointer !important;
+      user-select: none !important;
+      transition: all 0.2s ease !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+      background: transparent !important;
+      text-align: left !important;
+    }
+
+    .transition-item:last-child {
+      border-bottom: none !important;
+    }
+
+    .transition-item:hover {
+      background: rgba(79, 195, 247, 0.12) !important;
+      color: var(--accent2) !important;
+      padding-left: 18px !important;
+    }
+
+    .transition-item.active {
+      background: rgba(79, 195, 247, 0.2) !important;
+      color: var(--accent2) !important;
+      font-weight: 700 !important;
+    }
+
+    .transition-item.active::after {
+      content: '✓' !important;
+      font-size: 11px !important;
+      color: var(--accent2) !important;
+    }
+
+    #transition-list::-webkit-scrollbar {
+      width: 4px !important;
+    }
+    #transition-list::-webkit-scrollbar-track {
+      background: transparent !important;
+    }
+    #transition-list::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.15) !important;
+      border-radius: 2px !important;
+    }
+
+    /* === LIVE 動畫 === */
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+  </style>
+</head>
+<body>
+
+  <!-- 全域團隊 LOGO -->
+  <img src="images/logo.png" class="global-logo" id="logo-widget" alt="Team Logo" />
+
+  <!-- 翻頁效果選單 (僅在第一頁顯示) -->
+  <div id="transition-container">
+    <div id="transition-card">
+      <div class="menu-title">切換翻頁效果</div>
+      <div id="transition-header">
+        <span id="transition-current">縮放翻飛 (Zoom)</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div id="transition-list">
+        <div class="transition-item" data-val="zoom">縮放翻飛 (Zoom)</div>
+        <div class="transition-item" data-val="convex">3D 凸面翻頁 (Convex)</div>
+        <div class="transition-item" data-val="concave">3D 凹面翻頁 (Concave)</div>
+        <div class="transition-item" data-val="slide">橫向滑動 (Slide)</div>
+        <div class="transition-item" data-val="fade">柔光淡入 (Fade)</div>
+        <div class="transition-item" data-val="none">無特效 (None)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- Slide 1: 封面 -->
+      <section data-background-image="images/cover.png"
+               data-background-opacity="0.3"
+               data-background-size="cover">
+        <div class="title-slide">
+          <div class="tag">臺中市 114 學年度</div>
+          <h1>資訊教育議題輔導分團</h1>
+          <h2 style="color:var(--accent); margin-top:0.2em;">運作機制與成果報告</h2>
+          <div class="stat-row" style="margin-top: 1.5em; max-width: 600px; margin-left: auto; margin-right: auto;">
+            <div class="stat-card" style="padding: 10px;">
+              <div class="num" style="font-size: 1.2em;">14<span class="num-sub">人</span></div>
+              <div class="label" style="font-size: 0.35em;">編制人員</div>
+            </div>
+            <div class="stat-card" style="padding: 10px;">
+              <div class="num" style="font-size: 1.2em;">1<span class="num-sub">位</span></div>
+              <div class="label" style="font-size: 0.35em;">召集人</div>
+            </div>
+            <div class="stat-card" style="padding: 10px;">
+              <div class="num" style="font-size: 1.2em;">11<span class="num-sub">位</span></div>
+              <div class="label" style="font-size: 0.35em;">專兼任輔導員</div>
+            </div>
+          </div>
+          <p class="author">指導單位：臺中市政府教育局 | 報告日期：114學年度</p>
+        </div>
+      </section>
+
+      <!-- Slide 2: 即時互動文字雲 -->
+      <section id="slide-wordcloud">
+        <h2 style="font-size:1.15em; margin-bottom:0.4em;">開場互動：對於生成式 AI 融入教學，您的第一想法是什麼？</h2>
+        <div style="display:grid; grid-template-columns:260px 1fr; gap:16px; height:440px;">
+          <!-- 左欄：輸入與統計 -->
+          <div style="display:flex; flex-direction:column; gap:10px;">
+            <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:12px; border: 1px solid rgba(255,255,255,0.08);">
+              <div style="font-size:0.38em; color:var(--accent2); font-weight:700; margin-bottom:6px; text-align:left;">輸入答案</div>
+              <input id="wc-input" type="text" placeholder="例如：便利、擔心、變革…" maxlength="20"
+                style="width:100%; padding:8px 12px; border-radius:6px; border:1px solid rgba(79,195,247,0.3);
+                       background:rgba(255,255,255,0.08); color:#fff; font-size:12px;
+                       box-sizing:border-box; font-family:inherit; outline:none;" />
+              <button id="wc-btn"
+                style="width:100%; margin-top:8px; padding:8px; background:var(--accent2); color:#0d1117;
+                       border:none; border-radius:6px; font-weight:700; font-size:12px; cursor:pointer; transition: opacity 0.2s;">
+                送出答案 ↵
+              </button>
+            </div>
+            <div style="background:rgba(255,255,255,0.05); border-radius:10px; padding:12px; flex:1; overflow:hidden; display:flex; flex-direction:column; border: 1px solid rgba(255,255,255,0.08);">
+              <div style="font-size:0.38em; color:var(--accent2); font-weight:700; margin-bottom:6px; text-align:left; display:flex; justify-content:space-between; align-items:center;">
+                <span>熱門反饋</span>
+                <span style="background:#ff4757; color:#fff; padding:1px 5px; border-radius:10px; font-size:0.8em; animation:pulse 1.5s infinite; font-weight:800;">LIVE</span>
+              </div>
+              <div id="wc-list" style="font-size:0.32em; overflow-y:auto; flex:1; color:#ccc; text-align:left;"></div>
+              <div style="margin-top:6px; font-size:0.30em; color:#888; border-top:1px solid rgba(255,255,255,0.08); padding-top:6px; text-align:left;">
+                總提交：<span id="wc-total" style="color:var(--accent); font-weight:700;">0</span>　
+                獨立詞彙：<span id="wc-unique" style="color:var(--accent2); font-weight:700;">0</span>
+              </div>
+            </div>
+          </div>
+          <!-- 右欄：文字雲 Canvas -->
+          <div style="background:rgba(255,255,255,0.03); border-radius:12px; overflow:hidden; position:relative; border:1px solid rgba(255,255,255,0.06);">
+            <canvas id="wc-canvas" style="width:100%; height:100%; display:block;"></canvas>
+            <div id="wc-empty" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); color:#555; font-size:0.42em; text-align:center; pointer-events:none; line-height:2.0;">
+              等待輸入答案...<br>文字雲將即時在此生成 ✨
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 3: 專業認證與培能 -->
+      <section>
+        <h2>組織發展與政策協作</h2>
+        <div class="split-layout">
+          <div class="split-left">
+            <h3 style="color:var(--accent);">專業認證與培能</h3>
+            <ul>
+              <li class="fragment">團員榮獲多項認證：含 B3 數位教學指引講師及 A3 數位素養講師。</li>
+              <li class="fragment">取得數位學習工作坊(A1、A2、B1)講師與 AI 種子教師證書。</li>
+              <li class="fragment">辦理「AI 工作流教學應用」與「GAS 在教學上的應用」增能工作坊。</li>
+              <li class="fragment">積極開展跨域視野，包含科技教育中的性別觀點與雲林智慧教育中心參訪。</li>
+            </ul>
+          </div>
+          <div class="split-right">
+            <div class="adv-grid" style="grid-template-columns: 1fr;">
+              <div class="adv-card" style="display:flex; align-items:center; gap:12px; text-align:left; border-top:none; border-left: 4px solid var(--accent2);">
+                <div class="adv-icon" style="margin-bottom:0;"><img src="images/icon_1.png" style="width:36px; height:36px;"></div>
+                <div>
+                  <div class="adv-title" style="font-size:0.42em;">講師認證達 7 項/次</div>
+                  <div class="adv-desc" style="font-size:0.35em; margin-bottom:0;">B3數位指引、A3數位素養與AI種子教師。</div>
+                </div>
+              </div>
+              <div class="adv-card" style="display:flex; align-items:center; gap:12px; text-align:left; border-top:none; border-left: 4px solid var(--accent);">
+                <div class="adv-icon" style="margin-bottom:0;"><img src="images/icon_2.png" style="width:36px; height:36px;"></div>
+                <div>
+                  <div class="adv-title" style="font-size:0.42em; color:var(--accent);">團員三階認證 5 項/次</div>
+                  <div class="adv-desc" style="font-size:0.35em; margin-bottom:0;">全學年辦理 7 場次團員專業共備與增能。</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 4: 政策推廣與協作 -->
+      <section>
+        <h2>組織發展與政策協作</h2>
+        <div class="split-layout">
+          <div class="split-left">
+            <h3 style="color:var(--accent);">政策推廣與協作</h3>
+            <ul>
+              <li class="fragment">辦理跨領域資訊應用競賽，深化學生運算思維。</li>
+              <li class="fragment">參與教育部中小學 AI 教育探索者社群，對接中央政策。</li>
+              <li class="fragment">引進中央社群研發之 AI 課程模組，並於分團會議內部轉化推廣。</li>
+              <li class="fragment">協助本市教師掌握生成式 AI 教學應用路徑，建立科技倫理規範。</li>
+            </ul>
+          </div>
+          <div class="split-right">
+            <div style="display:flex; flex-direction:column; gap:12px;">
+              <div class="stat-card">
+                <div class="num">8<span class="num-sub">場次</span></div>
+                <div class="label">班級經營與素養研習</div>
+              </div>
+              <div class="stat-card">
+                <div class="num">250<span class="num-sub">人</span></div>
+                <div class="label">線上資訊工具研習(滿額)</div>
+              </div>
+              <div class="stat-card">
+                <div class="num">400<span class="num-sub">人+</span></div>
+                <div class="label">AI引導與實務應用研習</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 5: 創新課程研發 -->
+      <section>
+        <h2>課程教學轉化與推廣</h2>
+        <div class="split-layout">
+          <div class="split-left">
+            <h3 style="color:var(--accent);">創新課程研發</h3>
+            <ul>
+              <li class="fragment">研發產出符合十二年國教、具臺中在地特色之資訊教案。</li>
+              <li class="fragment">參與教育部因材網資訊教材建置，支援教師進行差異化教學。</li>
+              <li class="fragment">啟動跨縣市「智慧體育聯盟」，共同研發以 AI 為核心的運動課程。</li>
+              <li class="fragment">引進 AI 跳繩等硬體設備，推動體育教學的數位轉型與實踐。</li>
+            </ul>
+          </div>
+          <div class="split-right">
+            <div style="display:flex; flex-direction:column; gap:12px;">
+              <div class="stat-card" style="border-top: 4px solid var(--accent);">
+                <div class="num" style="color:var(--accent);">47<span class="num-sub">件</span></div>
+                <div class="label">臺中市資訊特色教材教案</div>
+              </div>
+              <div class="stat-card" style="border-top: 4px solid var(--accent2);">
+                <div class="num" style="color:var(--accent2);">4<span class="num-sub">縣市</span> / 7<span class="num-sub">校</span></div>
+                <div class="label">智慧體育聯盟串聯學校數</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 6: 獲獎教案示例 -->
+      <section>
+        <h2>課程教學轉化與推廣</h2>
+        <h3 style="color:var(--accent); margin-bottom: 0.4em;">獲獎教案示例 (共計 8 件優良教案)</h3>
+        <div class="adv-grid">
+          <div class="adv-card fragment">
+            <div class="adv-icon"><img src="images/icon_3.png"></div>
+            <div class="adv-title">教育部優良教案</div>
+            <div class="adv-desc">「媒體素養 X 簡報製作」榮獲教育部數位素養教案優選肯定。</div>
+          </div>
+          <div class="adv-card fragment">
+            <div class="adv-icon"><img src="images/icon_4.png"></div>
+            <div class="adv-title">生成式 AI 融入</div>
+            <div class="adv-desc">「AI影音造夢師」與「AI圖像魔法師-成語解謎挑戰」設計。</div>
+          </div>
+          <div class="adv-card fragment">
+            <div class="adv-icon"><img src="images/icon_5.png"></div>
+            <div class="adv-title">跨域生活化主題</div>
+            <div class="adv-desc">「從田間到餐桌-地瓜與六大類食物的故事」，融合食育與數位。</div>
+          </div>
+          <div class="adv-card fragment">
+            <div class="adv-icon"><img src="images/icon_6.png"></div>
+            <div class="adv-title">歷史與語文跨域</div>
+            <div class="adv-desc">「當桃花源記遇見 AI」與「創意遊戲學成語」教案開發。</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 7: 公開課與教學演示 -->
+      <section>
+        <h2>課程教學轉化與推廣</h2>
+        <div class="split-layout">
+          <div class="split-left">
+            <h3 style="color:var(--accent);">公開課與教學演示</h3>
+            <ul>
+              <li class="fragment">辦理全市資訊教育公開觀課，實踐「學習者為中心」理念。</li>
+              <li class="fragment">團員親自演示，將數位精進方案與科技素養融入課堂。</li>
+              <li class="fragment">針對時事，設計個資保護與網路防詐騙主題公開課，提升警覺。</li>
+              <li class="fragment">提供全市可感、可行的教學範案，降低教師實施課綱之焦慮。</li>
+            </ul>
+          </div>
+          <div class="split-right">
+            <div class="stat-card" style="padding: 30px 20px;">
+              <div class="num" style="font-size: 2.5em;">2<span class="num-sub" style="font-size: 0.3em;">場次</span></div>
+              <div class="label" style="font-size: 0.5em; font-weight:700; color:var(--accent2);">全市指標性公開觀議課</div>
+              <p style="font-size:0.35em; color:#aaa; margin-top:10px;">包含「資訊科技核心素養轉化」與「個資防護防詐騙」教學示範。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 8: 到校服務與研習 -->
+      <section>
+        <h2>專業支持與協助措施</h2>
+        <div class="split-layout">
+          <div class="split-left">
+            <h3 style="color:var(--accent);">到校服務與研習</h3>
+            <ul>
+              <li class="fragment">深入一線提供客製化諮詢與宣導，服務本市及跨縣市單位。</li>
+              <li class="fragment">擔任教育部入校入班陪伴計畫領航員，提供課堂輔導與策略。</li>
+              <li class="fragment">辦理 AI 教育系列研習，如「Gemini AI 教育家」與「行政增能」。</li>
+              <li class="fragment">開設線上資訊工具研習，支援教師課堂班級經營與成果產出。</li>
+            </ul>
+          </div>
+          <div class="split-right">
+            <div class="stat-card" style="padding: 40px 20px; border-left: 5px solid var(--accent);">
+              <div class="num" style="font-size: 3em;">45<span class="num-sub" style="font-size: 0.35em;">+場次</span></div>
+              <div class="label" style="font-size: 0.45em; font-weight: 700;">累計推廣與諮詢服務</div>
+              <p style="font-size:0.35em; color:#aaa; margin-top:8px;">包含到校諮詢、週三進修資訊研習、以及入校入班扶助輔導講座。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 9: 教師社群支持 -->
+      <section>
+        <h2>專業支持與協助措施</h2>
+        <h3 style="color:var(--accent); margin-bottom: 0.4em;">教師社群支持 (累計辦理與支持 12+ 項工作坊/社群)</h3>
+        <div class="adv-grid">
+          <div class="adv-card fragment">
+            <div class="adv-icon"><img src="images/icon_7.png"></div>
+            <div class="adv-title">夢 N 協力計畫</div>
+            <div class="adv-desc">承辦夢N數位協力計畫，引領科技領域實踐家社群進行專業共備。</div>
+          </div>
+          <div class="adv-card fragment">
+            <div class="adv-icon"><img src="images/icon_8.png"></div>
+            <div class="adv-title">影音夢工場</div>
+            <div class="adv-desc">成立「數位影音夢工場」社群，促進教師在多媒體影音創作的實務交流。</div>
+          </div>
+          <div class="adv-card fragment">
+            <div class="adv-icon"><img src="images/icon_1.png"></div>
+            <div class="adv-title">議題中心學校</div>
+            <div class="adv-desc">擔任資訊教育議題中心學校社群召集人，推動適性教材與 5G 新科技。</div>
+          </div>
+          <div class="adv-card fragment">
+            <div class="adv-icon"><img src="images/icon_2.png"></div>
+            <div class="adv-title">即時線上社群</div>
+            <div class="adv-desc">團員積極加入本市資訊組通訊群組，即時協助排解網路及教學系統問題。</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 10: 教學資源網更新 -->
+      <section>
+        <h2>資源建置與行銷</h2>
+        <h3 style="color:var(--accent); margin-bottom: 0.4em;">教學資源網更新</h3>
+        <div class="adv-grid">
+          <div class="adv-card fragment">
+            <div class="adv-icon"><img src="images/icon_3.png"></div>
+            <div class="adv-title">精進成果填報</div>
+            <div class="adv-desc">落實計畫成果管理，即時上傳總分團執行成果至精進計畫成果網。</div>
+          </div>
+          <div class="adv-card fragment">
+            <div class="adv-icon"><img src="images/icon_4.png"></div>
+            <div class="adv-title">入口網維護</div>
+            <div class="adv-desc">持續維護國教輔導體系入口網，更新成員編制與分團行事曆。</div>
+          </div>
+          <div class="adv-card fragment">
+            <div class="adv-icon"><img src="images/icon_5.png"></div>
+            <div class="adv-title">教學素材庫</div>
+            <div class="adv-desc">利用雲端建置教學資源與科技教育人才庫，提供全市教師多元教學素材。</div>
+          </div>
+          <div class="adv-card fragment">
+            <div class="adv-icon"><img src="images/icon_6.png"></div>
+            <div class="adv-title">線上教學專區</div>
+            <div class="adv-desc">持續彙整、上線各類學習單與得獎教案，已累積達數十筆教學資源。</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 11: 特色行銷與媒體 -->
+      <section>
+        <h2>資源建置與行銷</h2>
+        <div class="split-layout">
+          <div class="split-left">
+            <h3 style="color:var(--accent);">特色行銷與品牌媒體報導</h3>
+            <ul>
+              <li class="fragment">建立跨縣市策略聯盟，串聯大學與小學，激發分團運作新模式。</li>
+              <li class="fragment">經營臉書粉絲專頁，即時發布團務與研習，凝聚團員向心力。</li>
+              <li class="fragment">多重管道發布智慧體育、AI 教育等亮點特色成果，建立品牌形象。</li>
+              <li class="fragment">善用入口網站及文教專業媒體，擴散教學數位轉型的影響力。</li>
+            </ul>
+          </div>
+          <div class="split-right">
+            <div class="stat-card" style="padding: 30px 20px; border-top: 5px solid var(--accent2);">
+              <div class="num" style="font-size: 2.6em;">15<span class="num-sub" style="font-size: 0.35em;">家+</span></div>
+              <div class="label" style="font-size: 0.45em; font-weight:700;">主流與網路媒體廣泛報導</div>
+              <p style="font-size:0.35em; color:#aaa; margin-top:8px;">包含 TVBS、中時新聞、風傳媒、Yahoo新聞及國語日報等，大幅提昇影響力。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 12: 即時互動單選投票 (AI教學助教平台) -->
+      <section id="slide-poll">
+        <h2>特色加分與創新工具</h2>
+        <h3 style="font-size:0.95em; color:var(--accent); margin-bottom:0.5em;">即時投票：您認為哪種 AI 助教對老師備課的幫助最大？</h3>
+        <div id="poll-options" style="display:flex; flex-direction:column; gap:12px; margin-top:0.4em; max-width:650px; margin-left:auto; margin-right:auto;">
+          <!-- JS 會在這裡動態生成選項按鈕 -->
+        </div>
+        <div style="font-size:0.38em; color:#aaa; text-align:center; margin-top:1.0em;">
+          現場投票統計：<span id="poll-total" style="color:var(--accent2); font-weight:700; font-size:1.1em;">0</span> 票
+          <span style="display:inline-block; background:#ff4757; color:#fff; padding:1px 5px;
+                       border-radius:10px; font-size:0.85em; animation:pulse 1.5s infinite; margin-left:5px; font-weight:800;">LIVE</span>
+        </div>
+      </section>
+
+      <!-- Slide 13: 行政與教學工具 -->
+      <section>
+        <h2>特色加分與創新工具</h2>
+        <div class="split-layout">
+          <div class="split-left">
+            <h3 style="color:var(--accent);">校園行政與學科教學工具</h3>
+            <ul>
+              <li class="fragment"><strong>班級經營系統</strong>：點數管理、常規分數公告與成績查詢系統。</li>
+              <li class="fragment"><strong>活動輔助程式</strong>：小鐵人路跑計時、運動會抽籤與戶外教育即時定位。</li>
+              <li class="fragment"><strong>校園行政管理</strong>：活動即時簽到廣播系統與公務文件管理系統。</li>
+              <li class="fragment"><strong>互動學科工具</strong>：圓周率挑戰、小數分數互換、智慧體育跳繩大廳。</li>
+            </ul>
+          </div>
+          <div class="split-right">
+            <div class="stat-card" style="padding: 35px 20px; border-top: 5px solid var(--success);">
+              <div class="num" style="color:var(--success); font-size: 2.8em;">20<span class="num-sub" style="font-size: 0.35em;">項+</span></div>
+              <div class="label" style="font-size: 0.45em; font-weight:700;">自主研發行政與教學工具</div>
+              <p style="font-size:0.35em; color:#aaa; margin-top:8px;">廣泛涵蓋體育、數學、班級經營及教務管理，有效提升校園行政效率與學習樂趣。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 14: 封底 -->
+      <section data-background-image="images/ending.png"
+               data-background-opacity="0.3"
+               data-background-size="cover">
+        <div class="end-slide">
+          <img src="images/logo.png" class="logo-glow" alt="Logo" />
+          <h1 style="color:var(--accent2); font-size: 2.2em;">攜手邁向 AI 賦能的教育新未來</h1>
+          <p class="tagline">臺中市114學年度資訊教育議題輔導分團 | 感謝聆聽</p>
+          <div style="background:rgba(255,255,255,0.04); border-radius:10px; padding:12px; margin-top:1.5em; max-width:600px; margin-left:auto; margin-right:auto; border:1px solid rgba(255,255,255,0.06);">
+            <p style="font-size:0.4em; color:#aaa; margin:0; line-height:1.6;">本學年累計研發成果 47+ 件教材教案、35+ 款 AI 助教、20+ 項校園行政輔助軟體，並執行超過 45 場次推廣服務，全面嘉惠臺中市國中小學師生。</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+  <script>
+    // 初始化 Reveal.js，預設 transition 為 'zoom' (縮放翻飛)
+    Reveal.initialize({
+      hash: true,
+      transition: 'zoom',
+      transitionSpeed: 'default',
+      backgroundTransition: 'zoom',
+      center: true,
+      progress: true,
+      controls: true,
+      slideNumber: 'c/t',
+      plugins: []
+    });
+
+    // 控制選單顯示邏輯：僅在第一頁 (indexh === 0 且 indexv === 0) 顯示
+    const transContainer = document.getElementById('transition-container');
+    const transHeader = document.getElementById('transition-header');
+    const transList = document.getElementById('transition-list');
+    const transCurrent = document.getElementById('transition-current');
+    const transItems = document.querySelectorAll('.transition-item');
+
+    function updateMenuVisibility() {
+      const indices = Reveal.getIndices();
+      if (indices.h === 0 && indices.v === 0) {
+        transContainer.style.display = 'block';
+        requestAnimationFrame(() => {
+          transContainer.style.opacity = '1';
+          transContainer.style.transform = 'translateY(0)';
+        });
+      } else {
+        transContainer.style.opacity = '0';
+        transContainer.style.transform = 'translateY(-10px)';
+        // 動畫結束後隱藏元素，以防阻擋底下的操作
+        setTimeout(() => {
+          const currentIndices = Reveal.getIndices();
+          if (currentIndices.h !== 0 || currentIndices.v !== 0) {
+            transContainer.style.display = 'none';
+          }
+        }, 300);
+      }
+    }
+
+    // 監聽切頁事件
+    Reveal.on('slidechanged', updateMenuVisibility);
+    Reveal.on('ready', updateMenuVisibility);
+
+    // 初始化選單 active 狀態
+    transItems.forEach(item => {
+      if (item.getAttribute('data-val') === 'zoom') {
+        item.classList.add('active');
+      } else {
+        item.classList.remove('active');
+      }
+    });
+
+    // 選單點擊展開/收合
+    transHeader.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = transList.style.display === 'block';
+      transList.style.display = isOpen ? 'none' : 'block';
+      transHeader.classList.toggle('open', !isOpen);
+    });
+
+    // 點擊外面收合選單
+    document.addEventListener('click', () => {
+      transList.style.display = 'none';
+      transHeader.classList.remove('open');
+    });
+
+    // 切換特效
+    transItems.forEach(item => {
+      item.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const val = this.getAttribute('data-val');
+        const text = this.textContent;
+
+        // 更新目前選定文字與樣式
+        transCurrent.textContent = text;
+        transItems.forEach(i => i.classList.remove('active'));
+        this.classList.add('active');
+
+        // 動態更新 Reveal.js 的過渡效果 (同時更新投影片內容與背景背景圖片的過渡)
+        Reveal.configure({ 
+          transition: val,
+          backgroundTransition: val
+        });
+
+        // 收合選單
+        transList.style.display = 'none';
+        transHeader.classList.remove('open');
+      });
+    });
+
+    // 阻斷選單區域的點擊/觸控事件冒泡，防止觸發 Reveal.js 的切頁
+    transContainer.addEventListener('click', (e) => e.stopPropagation());
+    transContainer.addEventListener('mousedown', (e) => e.stopPropagation());
+    transContainer.addEventListener('touchstart', (e) => e.stopPropagation());
+  </script>
+
+  <!-- Firebase 雙軌即時互動 JS -->
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js';
+    import {
+      getFirestore, collection, addDoc, onSnapshot,
+      serverTimestamp, doc, setDoc
+    } from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js';
+
+    // Firebase 配置
+    const firebaseConfig = {
+      apiKey: "AIzaSyAYQhNavPSce17XtvDC5xnXyl9iUhW9KjA",
+      authDomain: "teacherstudy-109ef.firebaseapp.com",
+      projectId: "teacherstudy-109ef",
+      storageBucket: "teacherstudy-109ef.firebasestorage.app",
+      messagingSenderId: "196599230156",
+      appId: "1:196599230156:web:cfe55d364df3ae1b9d5c69"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const fdb = getFirestore(app);
+    const slug = 'taichung_edu_114';
+
+    // ==========================================
+    // 模組一：互動文字雲
+    // ==========================================
+    const wordsRef = collection(fdb, `${slug}_wordcloud`);
+    const COLORS = ['#4fc3f7','#e8643a','#ffb74d','#81c784','#ce93d8','#80deea','#f48fb1'];
+    
+    let wcData = [];
+    let isWcLocalMode = false;
+    let localWords = [];
+
+    const MOCK_WORDS = [
+      '便利', '大腦', '變革', '輔助備課', '行政減量', '資訊素養', '倫理', '人機協作', '減輕負擔', '學習主體'
+    ];
+
+    function loadLocalWords() {
+      try {
+        const data = localStorage.getItem(`${slug}_local_words`);
+        localWords = data ? JSON.parse(data) : [];
+      } catch(e) {
+        localWords = [];
+      }
+      if (localWords.length === 0) {
+        localWords = [...MOCK_WORDS];
+        saveLocalWords();
+      }
+    }
+
+    function saveLocalWords() {
+      try {
+        localStorage.setItem(`${slug}_local_words`, JSON.stringify(localWords));
+      } catch(e) {}
+    }
+
+    function renderWordCloudData(wordsList) {
+      const counts = {};
+      wordsList.forEach(w => counts[w] = (counts[w] || 0) + 1);
+      wcData = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+
+      document.getElementById('wc-total').textContent = wordsList.length;
+      document.getElementById('wc-unique').textContent = wcData.length;
+
+      const listEl = document.getElementById('wc-list');
+      listEl.innerHTML = wcData.slice(0, 8).map(([w, c]) =>
+        `<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.06);">
+          <span>${w}</span><span style="color:var(--accent);font-weight:700;">${c} 票</span>
+        </div>`
+      ).join('') || '<div style="color:#555;padding:8px 0;">尚無資料</div>';
+
+      const empty = document.getElementById('wc-empty');
+      if (empty) empty.style.display = wcData.length > 0 ? 'none' : '';
+      drawWordCloud();
+    }
+
+    window.wcSubmit = async function() {
+      const input = document.getElementById('wc-input');
+      const word = input.value.trim();
+      if (!word) return;
+
+      if (isWcLocalMode) {
+        localWords.push(word);
+        saveLocalWords();
+        renderWordCloudData(localWords);
+        input.value = '';
+        return;
+      }
+
+      const btn = document.getElementById('wc-btn');
+      btn.disabled = true;
+      try {
+        await addDoc(wordsRef, { word, created_at: serverTimestamp() });
+        input.value = '';
+      } catch(e) {
+        console.warn("Firestore 寫入失敗，啟用本地備援模式:", e);
+        isWcLocalMode = true;
+        loadLocalWords();
+        localWords.push(word);
+        saveLocalWords();
+        renderWordCloudData(localWords);
+        input.value = '';
+      } finally {
+        btn.disabled = false;
+      }
+    };
+
+    document.getElementById('wc-input')?.addEventListener('keypress', e => {
+      if (e.key === 'Enter') window.wcSubmit();
+    });
+    document.getElementById('wc-btn')?.addEventListener('click', window.wcSubmit);
+
+    // 訂閱文字雲資料
+    const unsubscribeWc = onSnapshot(wordsRef, 
+      snap => {
+        const words = [];
+        snap.forEach(doc => {
+          const data = doc.data();
+          if (data && data.word) words.push(data.word);
+        });
+        renderWordCloudData(words);
+      },
+      error => {
+        console.warn("Firestore 文字雲訂閱失敗，改用 LocalStorage:", error);
+        isWcLocalMode = true;
+        loadLocalWords();
+        renderWordCloudData(localWords);
+        
+        if (Reveal.getCurrentSlide()?.id === 'slide-wordcloud') {
+          startWcSimulation();
+        }
+      }
+    );
+
+    function drawWordCloud() {
+      const canvas = document.getElementById('wc-canvas');
+      if (!canvas || typeof WordCloud === 'undefined') return;
+      
+      const parent = canvas.parentElement;
+      const w = parent.offsetWidth || 500;
+      const h = parent.offsetHeight || 380;
+      canvas.width = w;
+      canvas.height = h;
+
+      if (wcData.length === 0) return;
+      const maxCount = wcData[0][1];
+      
+      WordCloud(canvas, {
+        list: wcData.map(([w, c]) => [w, Math.max(14, Math.round((c / maxCount) * 42))]),
+        gridSize: 8,
+        weightFactor: 1,
+        fontFamily: '"Microsoft JhengHei", "Noto Sans TC", sans-serif',
+        color: () => COLORS[Math.floor(Math.random() * COLORS.length)],
+        backgroundColor: 'transparent',
+        rotateRatio: 0.25,
+        shuffle: true,
+      });
+    }
+
+    // 模擬現場其他學生提交詞彙 (本地模式時定時加入詞彙)
+    let wcSimulationInterval = null;
+    const SIM_WORDS = ['大腦', '便利', '工具', '挑戰', '學習主體', '簡省時間', '數位素養', '智慧', '創發力', '倫理防守'];
+
+    function startWcSimulation() {
+      if (wcSimulationInterval) return;
+      wcSimulationInterval = setInterval(() => {
+        const word = Math.random() < 0.35 ? '便利' : SIM_WORDS[Math.floor(Math.random() * SIM_WORDS.length)];
+        localWords.push(word);
+        saveLocalWords();
+        renderWordCloudData(localWords);
+      }, 7000);
+    }
+
+    // ==========================================
+    // 模組二：單選互動投票
+    // ==========================================
+    const OPTIONS = [
+      { id: 'a', label: '紅焰系列 AI 助教 (教案生成、出題與批改、教材整理)' },
+      { id: 'b', label: '和~你一起玩系列 (成語圖像產生、活動新聞、公文撰寫)' }
+    ];
+    const pollRef = doc(fdb, `${slug}_poll`, 'results');
+    const userId = 'user_' + Math.random().toString(36).slice(2, 9);
+    let myVote = null;
+    let isPollLocalMode = false;
+    let localPollVotes = {}; 
+
+    function initMockPollData() {
+      // 預設產生 Mock 數據，提供臨場效果
+      for (let i = 1; i <= 26; i++) {
+        const k = `mock_a_${i}`;
+        if (!localPollVotes[k]) localPollVotes[k] = 'a';
+      }
+      for (let i = 1; i <= 16; i++) {
+        const k = `mock_b_${i}`;
+        if (!localPollVotes[k]) localPollVotes[k] = 'b';
+      }
+    }
+
+    function loadLocalPoll() {
+      try {
+        const data = localStorage.getItem(`${slug}_local_poll`);
+        localPollVotes = data ? JSON.parse(data) : {};
+      } catch(e) {
+        localPollVotes = {};
+      }
+      initMockPollData();
+      saveLocalPoll();
+    }
+
+    function saveLocalPoll() {
+      try {
+        localStorage.setItem(`${slug}_local_poll`, JSON.stringify(localPollVotes));
+      } catch(e) {}
+    }
+
+    function renderPollData(votes) {
+      const counts = {};
+      OPTIONS.forEach(o => counts[o.id] = 0);
+      Object.values(votes).forEach(v => {
+        if (counts[v] !== undefined) counts[v]++;
+      });
+      const total = Object.values(counts).reduce((a, b) => a + b, 0);
+
+      document.getElementById('poll-total').textContent = total;
+      OPTIONS.forEach(opt => {
+        const pct = total > 0 ? Math.round((counts[opt.id] / total) * 100) : 0;
+        document.getElementById(`poll-bar-${opt.id}`).style.width = pct + '%';
+        document.getElementById(`poll-pct-${opt.id}`).textContent = `${pct}% (${counts[opt.id]}票)`;
+      });
+    }
+
+    // 渲染投票按鈕
+    const container = document.getElementById('poll-options');
+    OPTIONS.forEach(opt => {
+      const btn = document.createElement('button');
+      btn.id = `poll-btn-${opt.id}`;
+      btn.innerHTML = `
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span style="flex:0 0 24px;height:24px;border-radius:50%;border:2px solid rgba(255,255,255,0.3);
+                       display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;"
+                id="poll-check-${opt.id}"></span>
+          <span style="flex:1;text-align:left;line-height:1.4;">${opt.label}</span>
+          <span id="poll-bar-wrap-${opt.id}"
+                style="flex:0 0 120px;height:8px;background:rgba(255,255,255,0.1);border-radius:4px;overflow:hidden;">
+            <div id="poll-bar-${opt.id}" style="height:100%;width:0;background:var(--accent2);border-radius:4px;transition:width 0.4s;"></div>
+          </span>
+          <span id="poll-pct-${opt.id}" style="flex:0 0 80px;text-align:right;font-size:0.75em;color:#888;font-weight:700;">0%</span>
+        </div>
+      `;
+      btn.style.cssText = `width:100%;padding:12px 16px;background:rgba(255,255,255,0.06);
+        border:1px solid rgba(255,255,255,0.12);border-radius:10px;color:#fff;
+        font-size:0.42em;cursor:pointer;font-family:inherit;text-align:left;transition:all 0.2s;`;
+      
+      btn.onmouseover = () => btn.style.background = 'rgba(255,255,255,0.1)';
+      btn.onmouseout = () => {
+        if (myVote !== opt.id) btn.style.background = 'rgba(255,255,255,0.06)';
+      };
+      btn.onclick = () => vote(opt.id);
+      container.appendChild(btn);
+    });
+
+    async function vote(optId) {
+      myVote = optId;
+      OPTIONS.forEach(opt => {
+        const check = document.getElementById(`poll-check-${opt.id}`);
+        const obtn = document.getElementById(`poll-btn-${opt.id}`);
+        if (opt.id === optId) {
+          check.textContent = '✓';
+          check.style.background = 'var(--accent2)';
+          check.style.borderColor = 'var(--accent2)';
+          obtn.style.background = 'rgba(79,195,247,0.12)';
+          obtn.style.borderColor = 'var(--accent2)';
+        } else {
+          check.textContent = '';
+          check.style.background = 'transparent';
+          check.style.borderColor = 'rgba(255,255,255,0.3)';
+          obtn.style.background = 'rgba(255,255,255,0.06)';
+          obtn.style.borderColor = 'rgba(255,255,255,0.12)';
+        }
+      });
+
+      if (isPollLocalMode) {
+        localPollVotes[userId] = optId;
+        saveLocalPoll();
+        renderPollData(localPollVotes);
+        return;
+      }
+
+      const data = {
+        votes: {
+          [userId]: optId
+        },
+        updated_at: serverTimestamp()
+      };
+      try {
+        await setDoc(pollRef, data, { merge: true });
+      } catch(e) {
+        console.warn("Firestore 投票寫入失敗，啟用本地備援模式:", e);
+        isPollLocalMode = true;
+        loadLocalPoll();
+        localPollVotes[userId] = optId;
+        saveLocalPoll();
+        renderPollData(localPollVotes);
+      }
+    }
+
+    // 訂閱投票結果
+    const unsubscribePoll = onSnapshot(pollRef, 
+      snap => {
+        const data = snap.data() || {};
+        let votes = data.votes || {};
+        
+        // 點記法相容
+        Object.keys(data).forEach(key => {
+          if (key.startsWith('votes.')) {
+            const uId = key.substring(6);
+            votes[uId] = data[key];
+          }
+        });
+        
+        renderPollData(votes);
+      },
+      error => {
+        console.warn("Firestore 投票訂閱失敗，改用 LocalStorage:", error);
+        isPollLocalMode = true;
+        loadLocalPoll();
+        renderPollData(localPollVotes);
+        
+        if (localPollVotes[userId]) {
+          myVote = localPollVotes[userId];
+          const check = document.getElementById(`poll-check-${myVote}`);
+          const obtn = document.getElementById(`poll-btn-${myVote}`);
+          if (check && obtn) {
+            check.textContent = '✓';
+            check.style.background = 'var(--accent2)';
+            check.style.borderColor = 'var(--accent2)';
+            obtn.style.background = 'rgba(79,195,247,0.12)';
+            obtn.style.borderColor = 'var(--accent2)';
+          }
+        }
+
+        if (Reveal.getCurrentSlide()?.id === 'slide-poll') {
+          startPollSimulation();
+        }
+      }
+    );
+
+    // 模擬現場其他學生投票
+    let pollSimulationInterval = null;
+
+    function startPollSimulation() {
+      if (pollSimulationInterval) return;
+      pollSimulationInterval = setInterval(() => {
+        const chosenOpt = Math.random() < 0.58 ? 'a' : 'b';
+        const randId = 'sim_' + Math.random().toString(36).slice(2, 7);
+        localPollVotes[randId] = chosenOpt;
+        saveLocalPoll();
+        renderPollData(localPollVotes);
+      }, 6000);
+    }
+
+    // ==========================================
+    // 幻燈片事件切換邏輯 (重繪文字雲與模擬啟動)
+    // ==========================================
+    Reveal.on('slidechanged', e => {
+      if (e.currentSlide?.id === 'slide-wordcloud') {
+        setTimeout(drawWordCloud, 200);
+        if (isWcLocalMode) startWcSimulation();
+      } else {
+        if (wcSimulationInterval) {
+          clearInterval(wcSimulationInterval);
+          wcSimulationInterval = null;
+        }
+      }
+
+      if (e.currentSlide?.id === 'slide-poll') {
+        if (isPollLocalMode) startPollSimulation();
+      } else {
+        if (pollSimulationInterval) {
+          clearInterval(pollSimulationInterval);
+          pollSimulationInterval = null;
+        }
+      }
+    });
+
+    // 初始文字雲載入與畫布調整
+    window.addEventListener('resize', () => {
+      if (Reveal.getCurrentSlide()?.id === 'slide-wordcloud') {
+        drawWordCloud();
+      }
+    });
+  </script>
+</body>
+</html>
