@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>圖片簡報展示</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/night.css" />
+  <style>
+    /* === 全域與簡報樣式 === */
+    :root {
+      --accent:  #e8643a;
+      --accent2: #4fc3f7;
+      --success: #81c784;
+      --warn:    #ffb74d;
+    }
+
+    .reveal {
+      font-family: 'PingFang TC', 'Microsoft JhengHei', 'Segoe UI', sans-serif;
+      background-color: #000000;
+    }
+
+    /* === 翻頁效果選單 (Sleek Glassmorphism) === */
+    #transition-container {
+      position: fixed;
+      top: 30px;
+      right: 30px;
+      z-index: 99999;
+      font-family: 'PingFang TC', 'Microsoft JhengHei', 'Segoe UI', sans-serif;
+      width: 260px;
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    #transition-card {
+      background: rgba(15, 15, 20, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 14px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(79, 195, 247, 0.15);
+      overflow: hidden;
+    }
+
+    .menu-title {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1.8px;
+      color: rgba(255, 255, 255, 0.45);
+      padding: 12px 16px 8px 16px;
+      font-weight: 700;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    #transition-header {
+      padding: 14px 16px;
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+      transition: background 0.2s ease;
+    }
+
+    #transition-header:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    #transition-header .arrow {
+      font-size: 10px;
+      color: var(--accent2);
+      transition: transform 0.3s ease;
+    }
+
+    #transition-header.open .arrow {
+      transform: rotate(180deg);
+    }
+
+    #transition-list {
+      display: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      max-height: 280px;
+      overflow-y: auto;
+      background: rgba(10, 10, 12, 0.9);
+    }
+
+    .transition-item {
+      padding: 12px 16px;
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.75);
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .transition-item:hover {
+      background: rgba(79, 195, 247, 0.12);
+      color: var(--accent2);
+      padding-left: 20px;
+    }
+
+    .transition-item.active {
+      background: rgba(79, 195, 247, 0.2);
+      color: var(--accent2);
+      font-weight: 700;
+    }
+
+    .transition-item.active::after {
+      content: '✓';
+      font-size: 12px;
+      color: var(--accent2);
+    }
+
+    #transition-list::-webkit-scrollbar {
+      width: 6px;
+    }
+    #transition-list::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    #transition-list::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 3px;
+    }
+    #transition-list::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    /* === Slide styling to ensure full image view === */
+    .reveal .slides section {
+      padding: 0;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+<div class="reveal">
+  <div class="slides">
+    <!-- 依據序號 1~24 製作的投影片 -->
+    <section data-background-image="115/1.png" data-background-size="contain" data-background-color="#000000"></section>
+    <section data-background-image="115/2.png" data-background-size="contain" data-background-color="#000000"></section>
+    <section data-background-image="115/3.png" data-background-size="contain" data-background-color="#000000"></section>
+    <section data-background-image="115/4.png" data-background-size="contain" data-background-color="#000000"></section>
+    <section data-background-image="115/5.png" data-background-size="contain" data-background-color="#000000"></section>
+    <section data-background-image="115/6.png" data-background-size="contain" data-background-color="#000000"></section>
+    <section data-background-image="115/7.png" data-background-size="contain" data-background-color="#000000"></section>
+    <section data-background-image="115/8.png" data-background-size="contain" data-background-color="#000000"></section>
+    <section data-background-image="115/9.png" data-background-size="contain" data-background-color="#000000"></section>
+    <section data-background-image="115/10.png" data-background-size="contain" data-background-color="#000000"></section>
+    <section data-background-image="115/11.png" data-background-size="contain" data-background-color="#000000"></section>
+    <section data-background-image="115/12.png" data-background-size="contain" data-background-color="#000000"></section>
+    <section data-background-image="115/13.png" data-background-size="contain" data-background-color="#000000"></section>
+    <section data-background-image="115/14.png" data-background-size="contain" data-background-color="#000000"></section>
+    <section data-background-image="115/15.png" data-background-size="contain" data-background-color="#000000"></section>
+    <section data-background-image="115/16.png" data-background-size="contain" data-background-color="#000000"></section>
+    <section data-background-image="115/17.png" data-background-size="contain" data-background-color="#000000"></section>
+    <section data-background-image="115/18.png" data-background-size="contain" data-background-color="#000000"></section>
+    <section data-background-image="115/19.png" data-background-size="contain" data-background-color="#000000"></section>
+    <section data-background-image="115/20.png" data-background-size="contain" data-background-color="#000000"></section>
+    <section data-background-image="115/21.png" data-background-size="contain" data-background-color="#000000"></section>
+    <section data-background-image="115/22.png" data-background-size="contain" data-background-color="#000000"></section>
+    <section data-background-image="115/23.png" data-background-size="contain" data-background-color="#000000"></section>
+    <section data-background-image="115/24.png" data-background-size="contain" data-background-color="#000000"></section>
+  </div>
+</div>
+
+<!-- 翻頁效果選單 (僅在第一頁顯示) -->
+<div id="transition-container">
+  <div id="transition-card">
+    <div class="menu-title">切換翻頁效果</div>
+    <div id="transition-header">
+      <span id="transition-current">縮放翻飛 (Zoom)</span>
+      <span class="arrow">▼</span>
+    </div>
+    <div id="transition-list">
+      <div class="transition-item" data-val="zoom">縮放翻飛 (Zoom)</div>
+      <div class="transition-item" data-val="convex">3D 凸面翻頁 (Convex)</div>
+      <div class="transition-item" data-val="concave">3D 凹面翻頁 (Concave)</div>
+      <div class="transition-item" data-val="slide">橫向滑動 (Slide)</div>
+      <div class="transition-item" data-val="fade">柔光淡入 (Fade)</div>
+      <div class="transition-item" data-val="none">無特效 (None)</div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script>
+  // 初始化 Reveal.js，符合 16:9 圖片比例，預設使用 縮放翻飛 (Zoom) 特效
+  Reveal.initialize({
+    width: 1920,
+    height: 1080,
+    margin: 0,
+    minScale: 0.1,
+    maxScale: 2.0,
+    hash: true,
+    transition: 'zoom',
+    transitionSpeed: 'default',
+    backgroundTransition: 'zoom',
+    center: true,
+    progress: true,
+    controls: true,
+    slideNumber: 'c/t',
+    keyboard: true,
+    touch: true
+  });
+
+  // 控制選單顯示邏輯：僅在第一頁 (indexh === 0 且 indexv === 0) 顯示
+  const transContainer = document.getElementById('transition-container');
+  const transHeader = document.getElementById('transition-header');
+  const transList = document.getElementById('transition-list');
+  const transCurrent = document.getElementById('transition-current');
+  const transItems = document.querySelectorAll('.transition-item');
+
+  function updateMenuVisibility() {
+    const indices = Reveal.getIndices();
+    if (indices.h === 0 && indices.v === 0) {
+      transContainer.style.display = 'block';
+      requestAnimationFrame(() => {
+        transContainer.style.opacity = '1';
+        transContainer.style.transform = 'translateY(0)';
+      });
+    } else {
+      transContainer.style.opacity = '0';
+      transContainer.style.transform = 'translateY(-10px)';
+      // 動畫結束後隱藏元素，以防阻擋底下的操作
+      setTimeout(() => {
+        const currentIndices = Reveal.getIndices();
+        if (currentIndices.h !== 0 || currentIndices.v !== 0) {
+          transContainer.style.display = 'none';
+        }
+      }, 300);
+    }
+  }
+
+  // 監聽切頁事件
+  Reveal.on('slidechanged', updateMenuVisibility);
+  Reveal.on('ready', updateMenuVisibility);
+
+  // 初始化選單 active 狀態
+  transItems.forEach(item => {
+    if (item.getAttribute('data-val') === 'zoom') {
+      item.classList.add('active');
+    } else {
+      item.classList.remove('active');
+    }
+  });
+
+  // 選單點擊展開/收合
+  transHeader.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = transList.style.display === 'block';
+    transList.style.display = isOpen ? 'none' : 'block';
+    transHeader.classList.toggle('open', !isOpen);
+  });
+
+  // 點擊外面收合選單
+  document.addEventListener('click', () => {
+    transList.style.display = 'none';
+    transHeader.classList.remove('open');
+  });
+
+  // 切換特效
+  transItems.forEach(item => {
+    item.addEventListener('click', function(e) {
+      e.stopPropagation();
+      const val = this.getAttribute('data-val');
+      const text = this.textContent;
+
+      // 更新目前選定文字與樣式
+      transCurrent.textContent = text;
+      transItems.forEach(i => i.classList.remove('active'));
+      this.classList.add('active');
+
+      // 動態更新 Reveal.js 的過渡效果 (同時更新投影片內容與背景背景圖片的過渡)
+      Reveal.configure({ 
+        transition: val,
+        backgroundTransition: val
+      });
+
+      // 收合選單
+      transList.style.display = 'none';
+      transHeader.classList.remove('open');
+    });
+  });
+
+  // 阻斷選單區域的點擊/觸控事件冒泡，防止觸發 Reveal.js 的切頁
+  transContainer.addEventListener('click', (e) => e.stopPropagation());
+  transContainer.addEventListener('mousedown', (e) => e.stopPropagation());
+  transContainer.addEventListener('touchstart', (e) => e.stopPropagation());
+</script>
+</body>
+</html>
